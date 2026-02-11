@@ -1,7 +1,13 @@
 import { Resend } from "resend";
 import { createClient } from "@/lib/supabase/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("Missing RESEND_API_KEY");
+  }
+  return new Resend(apiKey);
+}
 
 // Fallback single link (used when no admin links are set)
 const EBOOK_DOWNLOAD_URL = "https://drive.google.com/file/d/1PnvErck2pkoJNIcyktYSvMe_0TEwOTHn/view?usp=drive_link";
@@ -141,6 +147,7 @@ export async function sendDownloadEmail({
 
   const safeText = escapeHtml(templated).replace(/\n/g, "<br/>");
 
+  const resend = getResendClient();
   const { error } = await resend.emails.send({
     from: "Ebook Store <onboarding@resend.dev>",
     to: [to],
@@ -195,6 +202,7 @@ export async function sendReviewThankYouEmail({
 }: SendReviewEmailParams) {
   const safeName = escapeHtml(name);
   const safeContent = escapeHtml(content);
+  const resend = getResendClient();
   const { error } = await resend.emails.send({
     from: "Ebook Store <onboarding@resend.dev>",
     to: [to],

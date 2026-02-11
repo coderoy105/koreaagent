@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useEffect } from "react";
-import { Sparkles, Play, MessageCircle, ShoppingCart, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles, Settings, DollarSign, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface HeroSectionProps {
   price: number;
@@ -85,21 +85,21 @@ export function HeroSection({ price, originalPrice, saleEnabled, saleLabel, sale
         </h1>
 
         <div className="mt-10 p-6 bg-card rounded-2xl border border-border shadow-lg">
-          <p className="text-sm font-medium text-muted-foreground mb-4">성과 흐름 요약</p>
+          <p className="text-sm font-medium text-muted-foreground mb-4">하루 10분으로 수익 흐름 완성</p>
           <div className="flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
             <div className="flex flex-col items-center gap-2 p-3 bg-primary/10 rounded-xl">
-              <Play className="w-8 h-8 text-primary" />
-              <span className="text-xs font-medium text-foreground">Reels 콘텐츠</span>
+              <Sparkles className="w-8 h-8 text-primary" />
+              <span className="text-xs font-medium text-foreground">제품 제작</span>
             </div>
             <ArrowRight className="w-5 h-5 text-primary hidden sm:block" />
             <div className="flex flex-col items-center gap-2 p-3 bg-primary/10 rounded-xl">
-              <MessageCircle className="w-8 h-8 text-primary" />
-              <span className="text-xs font-medium text-foreground">DM 상담</span>
+              <Settings className="w-8 h-8 text-primary" />
+              <span className="text-xs font-medium text-foreground">자동 판매</span>
             </div>
             <ArrowRight className="w-5 h-5 text-primary hidden sm:block" />
             <div className="flex flex-col items-center gap-2 p-3 bg-primary/10 rounded-xl">
-              <ShoppingCart className="w-8 h-8 text-primary" />
-              <span className="text-xs font-medium text-foreground">자동 결제</span>
+              <DollarSign className="w-8 h-8 text-primary" />
+              <span className="text-xs font-medium text-foreground">수익 실현</span>
             </div>
           </div>
         </div>

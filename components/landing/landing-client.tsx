@@ -172,7 +172,7 @@ export function LandingClient({
       `}</style>
       <HeroSection price={price} originalPrice={originalPrice} saleEnabled={saleEnabled} saleLabel={saleLabel} saleEndAt={saleEndAt} />
       <TocSection />
-      <BenefitsSection originalPrice={originalPrice} />
+      <BenefitsSection />
       <TestimonialsSection />
       <ReviewSection />
 
