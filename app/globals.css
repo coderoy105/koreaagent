@@ -123,3 +123,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+body.hide-fixed-purchase-bar [data-fixed-purchase-bar="true"] {
+  display: none !important;
+}

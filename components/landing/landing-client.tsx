@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { HeroSection } from "@/components/landing/hero-section";
 import { TocSection } from "@/components/landing/toc-section";
 import { BenefitsSection } from "@/components/landing/benefits-section";
+import { OutcomesSection } from "@/components/landing/outcomes-section";
 import { TestimonialsSection } from "@/components/landing/testimonials-section";
 import { ReviewSection } from "@/components/landing/review-section";
 import { FixedPurchaseButton } from "@/components/landing/fixed-purchase-button";
@@ -42,6 +43,7 @@ export function LandingClient({
   const [saleLabel, setSaleLabel] = useState(initialSaleLabel);
   const [saleEndAt, setSaleEndAt] = useState<string | null>(initialSaleEndAt);
   const [saleRemaining, setSaleRemaining] = useState<string | null>(null);
+  const [isSaleOpen, setIsSaleOpen] = useState(false);
   const formattedPrice = new Intl.NumberFormat("ko-KR").format(price);
   const formattedOriginalPrice = new Intl.NumberFormat("ko-KR").format(originalPrice);
   const discountRate =
@@ -71,7 +73,7 @@ export function LandingClient({
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
       const pad = (n: number) => String(n).padStart(2, "0");
-      setSaleRemaining(`${days}일 ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`);
+      setSaleRemaining(`${days}일 ${pad(hours)}시 ${pad(minutes)}분 ${pad(seconds)}초`);
     };
     update();
     const timerId = setInterval(update, 1000);
@@ -137,20 +139,43 @@ export function LandingClient({
     <main className="min-h-screen pb-28">
       {saleEnabled && saleRemaining && (
         <div className="fixed bottom-36 left-4 z-50">
-          <div className="sale-badge relative rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white border border-white/20 shadow-[0_16px_40px_rgba(249,115,22,0.35)] overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-2">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/90">SALE</span>
-              <span className="text-xs font-semibold tracking-wide">{saleLabel || "타임세일"}</span>
-              <span className="text-xs font-semibold tabular-nums">{saleRemaining}</span>
-            </div>
-            <div className="px-4 py-2 text-xs border-t border-white/20 bg-white/10">
-              <div className="font-semibold text-white">{discountRate}% 할인</div>
-              <div className="text-[11px] text-white/80">
-                원가 <span className="line-through opacity-80">{formattedOriginalPrice}원</span>
-                <span className="mx-1">→</span>
-                할인가 <span className="font-semibold text-white">{formattedPrice}원</span>
+          <div className="sale-badge relative origin-left">
+            {!isSaleOpen ? (
+              <button
+                type="button"
+                onClick={() => setIsSaleOpen(true)}
+                aria-expanded={false}
+                className="w-[78px] h-[78px] rounded-xl px-1.5 py-1.5 text-white border border-white/20 shadow-[0_16px_40px_rgba(249,115,22,0.35)] bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 transition-transform duration-200 hover:scale-[1.03]"
+              >
+                <div className="h-full w-full flex flex-col items-center justify-center text-center">
+                  <span className="text-[12px] font-bold leading-none tracking-tight">설날세일</span>
+                  <span className="mt-1 w-full text-[10px] font-semibold leading-none bg-white/20 rounded-md py-1 whitespace-nowrap">
+                    눌러보기
+                  </span>
+                </div>
+              </button>
+            ) : (
+              <div className="sale-detail w-[260px] rounded-2xl overflow-hidden text-white border border-white/20 shadow-[0_16px_40px_rgba(249,115,22,0.35)] bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500">
+                <div className="w-full flex items-center justify-between gap-2 px-4 py-2 text-left">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/90">SALE</span>
+                    <span className="text-xs font-semibold tracking-wide">{saleLabel || "타임세일"}</span>
+                  </div>
+                  <button type="button" className="text-xs" onClick={() => setIsSaleOpen(false)}>
+                    닫기
+                  </button>
+                </div>
+                <div className="px-4 py-2 text-xs border-t border-white/20 bg-white/10 text-left">
+                  <div className="font-semibold text-white tabular-nums">{saleRemaining}</div>
+                  <div className="font-semibold text-white mt-1">{discountRate}% 할인</div>
+                  <div className="text-[11px] text-white/80 mt-1">
+                    정가 <span className="line-through opacity-80">{formattedOriginalPrice}원</span>
+                    <span className="mx-1">→</span>
+                    할인가 <span className="font-semibold text-white">{formattedPrice}원</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
@@ -169,10 +194,25 @@ export function LandingClient({
             transform: translateY(0) rotate(-0.4deg);
           }
         }
+        .sale-detail {
+          animation: sale-open 220ms ease-out;
+          transform-origin: top left;
+        }
+        @keyframes sale-open {
+          0% {
+            opacity: 0;
+            transform: scale(0.98) translateY(6px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
       `}</style>
       <HeroSection price={price} originalPrice={originalPrice} saleEnabled={saleEnabled} saleLabel={saleLabel} saleEndAt={saleEndAt} />
       <TocSection />
       <BenefitsSection />
+      <OutcomesSection />
       <TestimonialsSection />
       <ReviewSection />
 

@@ -113,6 +113,18 @@ export function PurchaseModal({
               <p className="font-semibold text-foreground">제9조(기타)</p>
               <p className="mt-1">문의는 인스타그램 DM 또는 이메일로 요청해주세요.</p>
             </div>
+            <div>
+              <p className="font-semibold text-foreground">제10조(개인정보 수집 및 이용 동의)</p>
+              <p className="mt-1">
+                주문 처리 및 다운로드 링크 발송을 위해 이름, 이메일, 인스타그램 아이디, 입금자명을 수집하며, 목적 달성 후 관련 법령에 따라 보관/파기됩니다.
+              </p>
+            </div>
+            <div>
+              <p className="font-semibold text-foreground">제11조(성과 고지)</p>
+              <p className="mt-1">
+                안내되는 사례와 수익 수치는 참고용이며, 개인의 실행력·경험·시장 상황에 따라 성과는 달라질 수 있습니다.
+              </p>
+            </div>
           </div>
           <Button
             onClick={() => {

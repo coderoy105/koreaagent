@@ -14,7 +14,10 @@ export function FixedPurchaseButton({ onPurchaseClick, price, originalPrice }: F
   const formattedOriginalPrice = originalPrice ? new Intl.NumberFormat("ko-KR").format(originalPrice) : null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-background/80 backdrop-blur-lg border-t border-border safe-area-bottom">
+    <div
+      data-fixed-purchase-bar="true"
+      className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-background/80 backdrop-blur-lg border-t border-border safe-area-bottom"
+    >
       <div className="max-w-lg mx-auto">
         <Button
           onClick={onPurchaseClick}

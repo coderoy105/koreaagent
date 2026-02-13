@@ -5,33 +5,33 @@ import { CheckCircle2 } from "lucide-react";
 const CHAPTERS = [
   {
     number: "01",
-    title: "\uC0AC\uB840 \uAC80\uC99D \uD504\uB86D\uB7A8",
-    description: "\uC2E4\uC81C \uC131\uACFC \uAE30\uB85D \uAE30\uBC18\uC73C\uB85C \uC804\uCCB4 \uD750\uB984 \uC774\uD574",
+    title: "SECTION 1: 상품 정하기",
+    description: "어떤 상품을 팔아야 하는지 핵심 기준부터 정리",
   },
   {
     number: "02",
-    title: "\uB9AC\uC2A4\uD2B8 \uD50C\uB85C\uC6B0",
-    description: "\uACE0\uAC1D \uC720\uC785 \uACBD\uB85C\uB97C \uC124\uACC4\uD558\uB294 \uBC29\uBC95",
+    title: "SECTION 2: 고객 모으기",
+    description: "고객 유입 경로를 만들고 문의를 모으는 방법",
   },
   {
     number: "03",
-    title: "\uC790\uB3D9 DM \uC2DC\uC2A4\uD15C",
-    description: "\uBB3C\uC5B4\uBCF4\uAE30 -> \uC81C\uC548 -> \uAD6C\uB9E4\uB85C \uC5F0\uACB0",
+    title: "SECTION 3: 결제 링크와 자동 판매",
+    description: "문의에서 결제까지 자동으로 연결되는 구조",
   },
   {
     number: "04",
-    title: "\uBB34\uC778 \uACB0\uC81C \uD750\uB984",
-    description: "\uC785\uAE08 \uD655\uC778 \uD6C4 \uB2E4\uC6B4\uB85C\uB4DC \uB9C1\uD06C \uC790\uB3D9 \uBC1C\uC1A1",
+    title: "SECTION 4: 한번 결제하면 추가 비용 없음 X",
+    description: "초기 세팅 이후 유지비를 없애는 운영 구조",
   },
   {
     number: "05",
-    title: "\uC6B4\uC601 \uC9C0\uD45C \uAD00\uB9AC",
-    description: "\uC9C0\uD45C \uB300\uC2DC\uBCF4\uB4DC\uB85C \uBC30\uC6B0\uB294 \uC870\uAC74 \uAC1C\uC120",
+    title: "SECTION 5: 자동화와 AI 활용",
+    description: "시간을 줄이고 효율을 높이는 자동화 운영법",
   },
   {
     number: "06",
-    title: "\uBC14\uB85C \uC4F0\uB294 \uD15C\uD50C\uB9BF",
-    description: "\uD15C\uD50C\uB9BF \uC81C\uACF5 -> \uC9C1\uC811 \uC801\uC6A9 -> \uC131\uACFC \uAC80\uC99D",
+    title: "SECTION 6: 지금 바로시작하기",
+    description: "오늘 바로 적용할 수 있는 실행 순서 가이드",
   },
 ];
 

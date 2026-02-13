@@ -32,6 +32,15 @@ export function ReviewSection() {
     fetchReviews();
   }, []);
 
+  useEffect(() => {
+    const shouldHide = showVerifyModal || (showWriteModal && isVerified);
+    document.body.classList.toggle("hide-fixed-purchase-bar", shouldHide);
+
+    return () => {
+      document.body.classList.remove("hide-fixed-purchase-bar");
+    };
+  }, [showVerifyModal, showWriteModal, isVerified]);
+
   const fetchReviews = async () => {
     try {
       const response = await fetch("/api/reviews");
@@ -173,31 +182,33 @@ export function ReviewSection() {
       {showWriteModal && isVerified && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-foreground/50 backdrop-blur-sm" onClick={() => setShowWriteModal(false)} />
-          <div className="relative w-full max-w-sm bg-card rounded-2xl p-6 shadow-2xl">
+          <div className="relative flex max-h-[85vh] w-full max-w-sm flex-col overflow-hidden rounded-2xl bg-card p-6 shadow-2xl">
             <button
               onClick={() => setShowWriteModal(false)}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted"
             >
               <X className="w-5 h-5 text-muted-foreground" />
             </button>
-            <h3 className="text-lg font-bold text-foreground mb-4">후기 작성</h3>
+            <h3 className="mb-4 text-lg font-bold text-foreground">후기 작성</h3>
 
-            <div className="mb-4">
-              <p className="text-sm text-muted-foreground mb-2">별점</p>
-              <RatingStars rating={rating} size="lg" onChange={setRating} />
-              <p className="text-xs text-muted-foreground mt-2">0.5점 단위로 선택할 수 있어요.</p>
+            <div className="overflow-y-auto pr-1">
+              <div className="mb-4">
+                <p className="mb-2 text-sm text-muted-foreground">별점</p>
+                <RatingStars rating={rating} size="lg" onChange={setRating} />
+                <p className="mt-2 text-xs text-muted-foreground">0.5점 단위로 선택할 수 있어요.</p>
+              </div>
+
+              <Textarea
+                placeholder="후기를 작성해주세요"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="mb-4 min-h-[160px]"
+              />
+
+              {error && <p className="mb-4 text-sm text-destructive">{error}</p>}
             </div>
 
-            <Textarea
-              placeholder="후기를 작성해주세요"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="min-h-[120px] mb-4"
-            />
-
-            {error && <p className="text-sm text-destructive mb-4">{error}</p>}
-
-            <Button onClick={handleSubmitReview} disabled={isSubmitting} className="w-full h-12">
+            <Button onClick={handleSubmitReview} disabled={isSubmitting} className="mt-2 h-12 w-full shrink-0">
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
