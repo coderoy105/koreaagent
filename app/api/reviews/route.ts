@@ -33,11 +33,11 @@ export async function POST(request: NextRequest) {
 
     const supabase = createAdminClient();
 
-    // Verify depositor name exists in completed orders (ignore spacing)
+    // Verify depositor name exists only in admin-confirmed orders
     const { data: orders } = await supabase
       .from("orders")
       .select("id, name, email, depositor_name, status")
-      .in("status", ["pending", "completed"]);
+      .eq("status", "completed");
 
     const normalizedInput = normalizeDepositorName(depositorName);
     const order = orders?.find((item) => {
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     if (!order) {
       return NextResponse.json(
-        { error: "\uC785\uAE08\uC790\uBA85\uC774 \uD655\uC778\uB418\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4. \uC8FC\uBB38 \uD6C4 \uD6C4\uAE30\uB97C \uC791\uC131\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4." },
+        { error: "입금 확인 & 발송 완료된 주문만 후기 작성이 가능합니다." },
         { status: 403 }
       );
     }
